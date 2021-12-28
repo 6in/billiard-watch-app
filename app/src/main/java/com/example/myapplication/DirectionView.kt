@@ -93,14 +93,33 @@ class DirectionView : View {
         var underDeg = Paint()
         underDeg.color = Color.rgb(128,128,128)
         underDeg.alpha = 90
+
+        val cpColor = Paint()
+        cpColor.color = Color.argb(255, 0, 0, 0)
+        val qlColor = Paint()
+        qlColor.color = Color.argb(127, 255, 0, 0)
+
         if (this.direction > 90) {
-            canvas.drawArc( RectF(0f,0f,w,h) , 270 - dirctionLocal  , dirctionLocal , true , thicknessPaint)
-            canvas.drawRect(0.0f,h / 2.0f, thicknessWidth, h , thicknessPaint)
-            canvas.drawArc( RectF(0f,0f,w,h) , 90 - dirctionLocal  , dirctionLocal , true , underDeg)
+            canvas.drawArc( RectF(0f,0f,w,h) , 270f - dirctionLocal  , dirctionLocal , true , thicknessPaint)
+//            canvas.drawRect(0.0f,h / 2.0f, thicknessWidth, h , thicknessPaint)
+            canvas.drawRect(w - thicknessWidth,h / 2.0f, w, h , thicknessPaint)
+            canvas.drawArc( RectF(0f,0f,w,h) , 90f - dirctionLocal  , dirctionLocal , true , underDeg)
+
+            canvas.drawCircle(w - thicknessWidth + thicknessWidth / 2.0f ,cy, 10.0f, cpColor)
+            canvas.drawCircle(w - thicknessWidth + w / 2.0f ,cy, 10.0f, qlColor)
+
         } else {
             canvas.drawArc( RectF(0f,0f,w,h) , 270f , dirctionLocal , true , thicknessPaint)
-            canvas.drawRect(w - thicknessWidth,h / 2.0f, w, h , thicknessPaint)
+//            canvas.drawRect(w - thicknessWidth,h / 2.0f, w, h , thicknessPaint)
+            canvas.drawRect(0.0f,h / 2.0f, thicknessWidth, h , thicknessPaint)
             canvas.drawArc( RectF(0f,0f,w,h) , 90f ,    dirctionLocal , true , underDeg)
+
+            canvas.drawCircle( thicknessWidth / 2.0f ,cy, 10.0f, cpColor)
+            canvas.drawCircle( thicknessWidth - w/2.0f ,cy, 10.0f, qlColor)
+        }
+
+        for (i in 1..7) {
+            canvas.drawCircle(  i * cx / 4.0f ,cy, 5.0f, thicknessPaint)
         }
 
         // 角度
